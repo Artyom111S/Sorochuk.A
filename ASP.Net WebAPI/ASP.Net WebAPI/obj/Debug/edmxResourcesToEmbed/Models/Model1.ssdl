@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BuyingCarSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DataClient" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cost" Type="int" Nullable="false" />
+    <Property Name="DatePurchase" Type="time" Precision="7" Nullable="false" />
+    <Property Name="SellingAutoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Selling_auto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="InStock" Type="bit" />
+    <Property Name="AutoDescription" Type="nchar" MaxLength="10" />
+    <Property Name="Cost" Type="int" />
+    <Property Name="DateReceipts" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_SellingAutoBuyingCar">
+    <End Role="Selling_auto" Type="Self.Selling_auto" Multiplicity="1" />
+    <End Role="BuyingCarSet" Type="Self.BuyingCarSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Selling_auto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BuyingCarSet">
+        <PropertyRef Name="SellingAutoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="BuyingCarSet" EntityType="Self.BuyingCarSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Selling_auto" EntityType="Self.Selling_auto" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_SellingAutoBuyingCar" Association="Self.FK_SellingAutoBuyingCar">
+      <End Role="Selling_auto" EntitySet="Selling_auto" />
+      <End Role="BuyingCarSet" EntitySet="BuyingCarSet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

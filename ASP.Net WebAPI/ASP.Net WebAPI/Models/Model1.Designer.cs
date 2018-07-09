@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "c:\users\admin\documents\visual studio 2015\Projects\ASP.Net WebAPI\ASP.Net WebAPI\Models\Model1.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\Admin\Desktop\Sorochuk.A-ASP.NetWebAPI1\Sorochuk.A-ASP.NetWebAPI1\ASP.Net WebAPI\ASP.Net WebAPI\Models\Model1.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

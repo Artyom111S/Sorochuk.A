@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/03/2018 18:43:26
--- Generated from EDMX file: c:\users\admin\documents\visual studio 2015\Projects\ASP.Net WebAPI\ASP.Net WebAPI\Models\Model1.edmx
+-- Date Created: 07/09/2018 13:51:56
+-- Generated from EDMX file: C:\Users\Admin\Desktop\Sorochuk.A-ASP.NetWebAPI1\Sorochuk.A-ASP.NetWebAPI1\ASP.Net WebAPI\ASP.Net WebAPI\Models\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,32 +17,42 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_SellingAutoBuyingCar]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BuyingCarSet] DROP CONSTRAINT [FK_SellingAutoBuyingCar];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[BuyingCarSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BuyingCarSet];
+GO
+IF OBJECT_ID(N'[dbo].[Selling_auto]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Selling_auto];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
 
--- Creating table 'Entity1Set'
-CREATE TABLE [dbo].[Entity1Set] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Логический] bit  NOT NULL,
-    [Строковый] nvarchar(max)  NOT NULL,
-    [Числовой] int  NOT NULL,
-    [ДатаВремя] time  NOT NULL
+-- Creating table 'Selling_auto'
+CREATE TABLE [dbo].[Selling_auto] (
+    [Id] int  NOT NULL,
+    [InStock] bit  NULL,
+    [AutoDescription] nchar(10)  NULL,
+    [Cost] int  NULL,
+    [DateReceipts] datetime  NULL
 );
 GO
 
--- Creating table 'Entity2Set'
-CREATE TABLE [dbo].[Entity2Set] (
+-- Creating table 'BuyingCarSet'
+CREATE TABLE [dbo].[BuyingCarSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Числовой] int  NOT NULL,
-    [Строковый] nvarchar(max)  NOT NULL,
-    [Entity1_Id] int  NOT NULL
+    [DataClient] nvarchar(max)  NOT NULL,
+    [Cost] int  NOT NULL,
+    [DatePurchase] time  NOT NULL,
+    [SellingAutoId] int  NOT NULL
 );
 GO
 
@@ -50,15 +60,15 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [Id] in table 'Entity1Set'
-ALTER TABLE [dbo].[Entity1Set]
-ADD CONSTRAINT [PK_Entity1Set]
+-- Creating primary key on [Id] in table 'Selling_auto'
+ALTER TABLE [dbo].[Selling_auto]
+ADD CONSTRAINT [PK_Selling_auto]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Entity2Set'
-ALTER TABLE [dbo].[Entity2Set]
-ADD CONSTRAINT [PK_Entity2Set]
+-- Creating primary key on [Id] in table 'BuyingCarSet'
+ALTER TABLE [dbo].[BuyingCarSet]
+ADD CONSTRAINT [PK_BuyingCarSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -66,19 +76,19 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [Entity1_Id] in table 'Entity2Set'
-ALTER TABLE [dbo].[Entity2Set]
-ADD CONSTRAINT [FK_Entity1Entity2]
-    FOREIGN KEY ([Entity1_Id])
-    REFERENCES [dbo].[Entity1Set]
+-- Creating foreign key on [SellingAutoId] in table 'BuyingCarSet'
+ALTER TABLE [dbo].[BuyingCarSet]
+ADD CONSTRAINT [FK_SellingAutoBuyingCar]
+    FOREIGN KEY ([SellingAutoId])
+    REFERENCES [dbo].[Selling_auto]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_Entity1Entity2'
-CREATE INDEX [IX_FK_Entity1Entity2]
-ON [dbo].[Entity2Set]
-    ([Entity1_Id]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_SellingAutoBuyingCar'
+CREATE INDEX [IX_FK_SellingAutoBuyingCar]
+ON [dbo].[BuyingCarSet]
+    ([SellingAutoId]);
 GO
 
 -- --------------------------------------------------

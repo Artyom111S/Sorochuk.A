@@ -17,7 +17,8 @@ namespace ASP.Net_WebAPI
             // Код, выполняемый при запуске приложения
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);            
+            RouteConfig.RegisterRoutes(RouteTable.Routes);  
+                      
         }
     }
 }

@@ -1,0 +1,50 @@
+﻿@model ASP.Net_WebAPI.Models.Продажа_авто
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Продажа_авто</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.В_наличии)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.В_наличии)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Данные_автомобиля)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Данные_автомобиля)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Цена_авто)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Цена_авто)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Дата_привоза)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_привоза)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_компании }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

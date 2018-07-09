@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Selling_auto" EntityType="Model1.SellingAuto" />
+    <EntitySet Name="BuyingCarSet" EntityType="Model1.BuyingCar" />
+    <AssociationSet Name="SellingAutoBuyingCar" Association="Model1.SellingAutoBuyingCar">
+      <End Role="SellingAuto" EntitySet="Selling_auto" />
+      <End Role="BuyingCar" EntitySet="BuyingCarSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="SellingAuto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="InStock" Type="Boolean" />
+    <Property Name="AutoDescription" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Cost" Type="Int32" />
+    <Property Name="DateReceipts" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BuyingCar" Relationship="Model1.SellingAutoBuyingCar" FromRole="SellingAuto" ToRole="BuyingCar" />
+  </EntityType>
+  <EntityType Name="BuyingCar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DataClient" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Cost" Type="Int32" Nullable="false" />
+    <Property Name="DatePurchase" Type="Time" Nullable="false" Precision="7" />
+    <NavigationProperty Name="SellingAuto" Relationship="Model1.SellingAutoBuyingCar" FromRole="BuyingCar" ToRole="SellingAuto" />
+    <Property Name="SellingAutoId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="SellingAutoBuyingCar">
+    <End Type="Model1.SellingAuto" Role="SellingAuto" Multiplicity="1" />
+    <End Type="Model1.BuyingCar" Role="BuyingCar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SellingAuto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BuyingCar">
+        <PropertyRef Name="SellingAutoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

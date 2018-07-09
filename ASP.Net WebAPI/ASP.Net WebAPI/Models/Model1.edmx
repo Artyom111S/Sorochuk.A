@@ -4,81 +4,92 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="Model1StoreContainer">
-    <EntitySet Name="Entity1Set" EntityType="Model1.Store.Entity1Set" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Entity2Set" EntityType="Model1.Store.Entity2Set" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="Entity1Entity2" Association="Model1.Store.Entity1Entity2">
-      <End Role="Entity1" EntitySet="Entity1Set" />
-      <End Role="Entity2" EntitySet="Entity2Set" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Entity1Set">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Логический" Type="bit" Nullable="false" />
-    <Property Name="Строковый" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Числовой" Type="int" Nullable="false" />
-    <Property Name="ДатаВремя" Type="time" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Entity2Set">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Числовой" Type="int" Nullable="false" />
-    <Property Name="Строковый" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Entity1_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="Entity1Entity2">
-    <End Role="Entity1" Type="Model1.Store.Entity1Set" Multiplicity="1" />
-    <End Role="Entity2" Type="Model1.Store.Entity2Set" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Entity1">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Entity2">
-        <PropertyRef Name="Entity1_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BuyingCarSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataClient" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Cost" Type="int" Nullable="false" />
+          <Property Name="DatePurchase" Type="time" Precision="7" Nullable="false" />
+          <Property Name="SellingAutoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Selling_auto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="InStock" Type="bit" />
+          <Property Name="AutoDescription" Type="nchar" MaxLength="10" />
+          <Property Name="Cost" Type="int" />
+          <Property Name="DateReceipts" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_SellingAutoBuyingCar">
+          <End Role="Selling_auto" Type="Self.Selling_auto" Multiplicity="1" />
+          <End Role="BuyingCarSet" Type="Self.BuyingCarSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Selling_auto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BuyingCarSet">
+              <PropertyRef Name="SellingAutoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="BuyingCarSet" EntityType="Self.BuyingCarSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Selling_auto" EntityType="Self.Selling_auto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SellingAutoBuyingCar" Association="Self.FK_SellingAutoBuyingCar">
+            <End Role="Selling_auto" EntitySet="Selling_auto" />
+            <End Role="BuyingCarSet" EntitySet="BuyingCarSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Entity1Set" EntityType="Model1.Entity1" />
-          <EntitySet Name="Entity2Set" EntityType="Model1.Entity2" />
-          <AssociationSet Name="Entity1Entity2" Association="Model1.Entity1Entity2">
-            <End Role="Entity1" EntitySet="Entity1Set" />
-            <End Role="Entity2" EntitySet="Entity2Set" />
+          <EntitySet Name="Selling_auto" EntityType="Model1.SellingAuto" />
+          <EntitySet Name="BuyingCarSet" EntityType="Model1.BuyingCar" />
+          <AssociationSet Name="SellingAutoBuyingCar" Association="Model1.SellingAutoBuyingCar">
+            <End Role="SellingAuto" EntitySet="Selling_auto" />
+            <End Role="BuyingCar" EntitySet="BuyingCarSet" />
           </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Entity1">
+          </EntityContainer>
+        <EntityType Name="SellingAuto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="InStock" Type="Boolean" />
+          <Property Name="AutoDescription" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Cost" Type="Int32" />
+          <Property Name="DateReceipts" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BuyingCar" Relationship="Model1.SellingAutoBuyingCar" FromRole="SellingAuto" ToRole="BuyingCar" />
+        </EntityType>
+        <EntityType Name="BuyingCar">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Логический" Type="Boolean" Nullable="false" />
-          <Property Name="Строковый" Type="String" Nullable="false" />
-          <Property Name="Числовой" Type="Int32" Nullable="false" />
-          <Property Name="ДатаВремя" Type="Time" Nullable="false" />
-          <NavigationProperty Name="Entity2" Relationship="Model1.Entity1Entity2" FromRole="Entity1" ToRole="Entity2" />
+          <Property Name="DataClient" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Cost" Type="Int32" Nullable="false" />
+          <Property Name="DatePurchase" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="SellingAuto" Relationship="Model1.SellingAutoBuyingCar" FromRole="BuyingCar" ToRole="SellingAuto" />
+          <Property Name="SellingAutoId" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Entity2">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Числовой" Type="Int32" Nullable="false" />
-          <Property Name="Строковый" Type="String" Nullable="false" />
-          <NavigationProperty Name="Entity1" Relationship="Model1.Entity1Entity2" FromRole="Entity2" ToRole="Entity1" />
-        </EntityType>
-        <Association Name="Entity1Entity2">
-          <End Type="Model1.Entity1" Role="Entity1" Multiplicity="1" />
-          <End Type="Model1.Entity2" Role="Entity2" Multiplicity="*" />
+        <Association Name="SellingAutoBuyingCar">
+          <End Type="Model1.SellingAuto" Role="SellingAuto" Multiplicity="1" />
+          <End Type="Model1.BuyingCar" Role="BuyingCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SellingAuto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BuyingCar">
+              <PropertyRef Name="SellingAutoId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -86,34 +97,28 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
-    <EntitySetMapping Name="Entity1Set">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.Entity1)">
-        <MappingFragment StoreEntitySet="Entity1Set">
+    <EntitySetMapping Name="Selling_auto">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.SellingAuto)">
+        <MappingFragment StoreEntitySet="Selling_auto">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Логический" ColumnName="Логический" />
-          <ScalarProperty Name="Строковый" ColumnName="Строковый" />
-          <ScalarProperty Name="Числовой" ColumnName="Числовой" />
-          <ScalarProperty Name="ДатаВремя" ColumnName="ДатаВремя" />
+          <ScalarProperty Name="InStock" ColumnName="InStock" />
+          <ScalarProperty Name="AutoDescription" ColumnName="AutoDescription" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="DateReceipts" ColumnName="DateReceipts" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Entity2Set">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.Entity2)">
-        <MappingFragment StoreEntitySet="Entity2Set">
+    <EntitySetMapping Name="BuyingCarSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.BuyingCar)">
+        <MappingFragment StoreEntitySet="BuyingCarSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Числовой" ColumnName="Числовой" />
-          <ScalarProperty Name="Строковый" ColumnName="Строковый" />
+          <ScalarProperty Name="DataClient" ColumnName="DataClient" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="DatePurchase" ColumnName="DatePurchase" />
+          <ScalarProperty Name="SellingAutoId" ColumnName="SellingAutoId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="Entity1Entity2" TypeName="Model1.Entity1Entity2" StoreEntitySet="Entity2Set">
-      <EndProperty Name="Entity1">
-        <ScalarProperty Name="Id" ColumnName="Entity1_Id" />
-      </EndProperty>
-      <EndProperty Name="Entity2">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -130,6 +135,7 @@
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
         <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
