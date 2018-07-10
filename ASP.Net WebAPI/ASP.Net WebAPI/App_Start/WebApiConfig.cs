@@ -12,7 +12,9 @@ namespace ASP.Net_WebAPI
         {
             // Конфигурация и службы веб-API
             config.Formatters.JsonFormatter.SupportedMediaTypes
-    .Add(new MediaTypeHeaderValue("text/html"));
+                .Add(new MediaTypeHeaderValue("text/html"));
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling
+                = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             // Маршруты веб-API
             config.MapHttpAttributeRoutes();
 

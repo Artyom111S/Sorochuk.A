@@ -12,7 +12,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="InStock" Type="Boolean" />
     <Property Name="AutoDescription" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Cost" Type="Int32" />
@@ -26,7 +26,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DataClient" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="Cost" Type="Int32" Nullable="false" />
-    <Property Name="DatePurchase" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="DatePurchase" Type="DateTime" Nullable="false" />
     <NavigationProperty Name="SellingAuto" Relationship="Model1.SellingAutoBuyingCar" FromRole="BuyingCar" ToRole="SellingAuto" />
     <Property Name="SellingAutoId" Type="Int32" Nullable="false" />
   </EntityType>

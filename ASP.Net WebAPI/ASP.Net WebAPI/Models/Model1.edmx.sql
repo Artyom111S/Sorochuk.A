@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/09/2018 13:51:56
+-- Date Created: 07/10/2018 11:37:51
 -- Generated from EDMX file: C:\Users\Admin\Desktop\Sorochuk.A-ASP.NetWebAPI1\Sorochuk.A-ASP.NetWebAPI1\ASP.Net WebAPI\ASP.Net WebAPI\Models\Model1.edmx
 -- --------------------------------------------------
 
@@ -25,11 +25,11 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[BuyingCarSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[BuyingCarSet];
-GO
 IF OBJECT_ID(N'[dbo].[Selling_auto]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Selling_auto];
+GO
+IF OBJECT_ID(N'[dbo].[BuyingCarSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BuyingCarSet];
 GO
 
 -- --------------------------------------------------
@@ -38,7 +38,7 @@ GO
 
 -- Creating table 'Selling_auto'
 CREATE TABLE [dbo].[Selling_auto] (
-    [Id] int  NOT NULL,
+    [Id] int IDENTITY(1,1) NOT NULL,
     [InStock] bit  NULL,
     [AutoDescription] nchar(10)  NULL,
     [Cost] int  NULL,
@@ -51,7 +51,7 @@ CREATE TABLE [dbo].[BuyingCarSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DataClient] nvarchar(max)  NOT NULL,
     [Cost] int  NOT NULL,
-    [DatePurchase] time  NOT NULL,
+    [DatePurchase] datetime  NOT NULL,
     [SellingAutoId] int  NOT NULL
 );
 GO

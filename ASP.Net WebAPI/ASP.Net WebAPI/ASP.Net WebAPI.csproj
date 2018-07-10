@@ -181,6 +181,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BCController.cs" />
+    <Compile Include="Controllers\BuyingCarsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MVCController.cs" />
     <Compile Include="Controllers\SellingAutoAPIController.cs" />
     <Compile Include="Global.asax.cs">
@@ -235,6 +238,8 @@
     <Content Include="Views\SellingAutoes\Details.cshtml" />
     <Content Include="Views\SellingAutoes\Edit.cshtml" />
     <Content Include="Views\SellingAutoes\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\WebGrid.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -242,7 +247,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\BuyingCars\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    var grid = new WebGrid(Model);
 }
 
 <h2>Index</h2>
@@ -9,7 +10,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.InStock)
@@ -48,4 +49,6 @@
     </tr>
 }
 
-</table>
+</table>*@
+
+@grid.GetHtml()

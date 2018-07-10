@@ -24,7 +24,7 @@ public partial class BuyingCar
 
     public int Cost { get; set; }
 
-    public System.TimeSpan DatePurchase { get; set; }
+    public System.DateTime DatePurchase { get; set; }
 
     public int SellingAutoId { get; set; }
 

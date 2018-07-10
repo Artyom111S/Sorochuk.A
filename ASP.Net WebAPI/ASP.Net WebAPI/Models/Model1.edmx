@@ -4,48 +4,48 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="BuyingCarSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DataClient" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Cost" Type="int" Nullable="false" />
-          <Property Name="DatePurchase" Type="time" Precision="7" Nullable="false" />
-          <Property Name="SellingAutoId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Selling_auto">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="InStock" Type="bit" />
-          <Property Name="AutoDescription" Type="nchar" MaxLength="10" />
-          <Property Name="Cost" Type="int" />
-          <Property Name="DateReceipts" Type="datetime" />
-        </EntityType>
-        <Association Name="FK_SellingAutoBuyingCar">
-          <End Role="Selling_auto" Type="Self.Selling_auto" Multiplicity="1" />
-          <End Role="BuyingCarSet" Type="Self.BuyingCarSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Selling_auto">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BuyingCarSet">
-              <PropertyRef Name="SellingAutoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="Model1StoreContainer">
-          <EntitySet Name="BuyingCarSet" EntityType="Self.BuyingCarSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Selling_auto" EntityType="Self.Selling_auto" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_SellingAutoBuyingCar" Association="Self.FK_SellingAutoBuyingCar">
-            <End Role="Selling_auto" EntitySet="Selling_auto" />
-            <End Role="BuyingCarSet" EntitySet="BuyingCarSet" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Selling_auto" EntityType="Model1.Store.Selling_auto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BuyingCarSet" EntityType="Model1.Store.BuyingCarSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="SellingAutoBuyingCar" Association="Model1.Store.SellingAutoBuyingCar">
+      <End Role="SellingAuto" EntitySet="Selling_auto" />
+      <End Role="BuyingCar" EntitySet="BuyingCarSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Selling_auto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InStock" Type="bit" Nullable="true" />
+    <Property Name="AutoDescription" Type="nchar" Nullable="true" MaxLength="10" />
+    <Property Name="Cost" Type="int" Nullable="true" />
+    <Property Name="DateReceipts" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="BuyingCarSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DataClient" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cost" Type="int" Nullable="false" />
+    <Property Name="DatePurchase" Type="datetime" Nullable="false" />
+    <Property Name="SellingAutoId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="SellingAutoBuyingCar">
+    <End Role="SellingAuto" Type="Model1.Store.Selling_auto" Multiplicity="1" />
+    <End Role="BuyingCar" Type="Model1.Store.BuyingCarSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SellingAuto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BuyingCar">
+        <PropertyRef Name="SellingAutoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -61,7 +61,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="InStock" Type="Boolean" />
           <Property Name="AutoDescription" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Cost" Type="Int32" />
@@ -75,7 +75,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DataClient" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Cost" Type="Int32" Nullable="false" />
-          <Property Name="DatePurchase" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="DatePurchase" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="SellingAuto" Relationship="Model1.SellingAutoBuyingCar" FromRole="BuyingCar" ToRole="SellingAuto" />
           <Property Name="SellingAutoId" Type="Int32" Nullable="false" />
         </EntityType>
