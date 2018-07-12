@@ -10,23 +10,23 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ASP.Net_WebAPI.Models;
 
-namespace ASP.Net_WebAPI.Controllers
+namespace ASP.Net_WebAPI.Controllers.Api
 {
-    public class SellingAutoAPIController : ApiController
+    public class SellingAutoController : ApiController
     {
-        private Model1Container db = new Model1Container();
+        private readonly Model1Container _db = new Model1Container();
 
         // GET: api/SellingAutoAPI
         public IQueryable<SellingAuto> GetSelling_auto()
         {
-            return db.Selling_auto;
+            return _db.Selling_auto;
         }
 
         // GET: api/SellingAutoAPI/5
         [ResponseType(typeof(SellingAuto))]
         public IHttpActionResult GetSellingAuto(int id)
         {
-            SellingAuto sellingAuto = db.Selling_auto.Find(id);
+            SellingAuto sellingAuto = _db.Selling_auto.Find(id);
             if (sellingAuto == null)
             {
                 return NotFound();
@@ -49,11 +49,11 @@ namespace ASP.Net_WebAPI.Controllers
                 return BadRequest();
             }
 
-            db.Entry(sellingAuto).State = EntityState.Modified;
+            _db.Entry(sellingAuto).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -79,11 +79,11 @@ namespace ASP.Net_WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Selling_auto.Add(sellingAuto);
+            _db.Selling_auto.Add(sellingAuto);
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateException)
             {
@@ -104,14 +104,14 @@ namespace ASP.Net_WebAPI.Controllers
         [ResponseType(typeof(SellingAuto))]
         public IHttpActionResult DeleteSellingAuto(int id)
         {
-            SellingAuto sellingAuto = db.Selling_auto.Find(id);
+            SellingAuto sellingAuto = _db.Selling_auto.Find(id);
             if (sellingAuto == null)
             {
                 return NotFound();
             }
 
-            db.Selling_auto.Remove(sellingAuto);
-            db.SaveChanges();
+            _db.Selling_auto.Remove(sellingAuto);
+            _db.SaveChanges();
 
             return Ok(sellingAuto);
         }
@@ -120,14 +120,14 @@ namespace ASP.Net_WebAPI.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool SellingAutoExists(int id)
         {
-            return db.Selling_auto.Count(e => e.Id == id) > 0;
+            return _db.Selling_auto.Count(e => e.Id == id) > 0;
         }
     }
 }

@@ -11,44 +11,52 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 @*<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.InStock)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AutoDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateReceipts)
-        </th>
-        <th></th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InStock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutoDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateReceipts)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.InStock)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AutoDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateReceipts)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { Id = item.Id})
-            @Html.ActionLink("Details", "Details", new { Id=item.Id })
-            @Html.ActionLink("Delete", "Delete", new { Id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InStock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutoDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateReceipts)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { Id = item.Id})
+                @Html.ActionLink("Details", "Details", new { Id=item.Id })
+                @Html.ActionLink("Delete", "Delete", new { Id=item.Id })
+            </td>
+        </tr>
+    }
 
-</table>*@
+    </table>*@
 
-@grid.GetHtml()
+@grid.GetHtml(tableStyle: "table table-striped",
+    columns: grid.Columns(
+        grid.Column("Id"),
+        grid.Column("InStock"),
+        grid.Column("AutoDescription"),
+        grid.Column("Cost"),
+        grid.Column("DateReceipts"),
+        grid.Column(format: (item) => new HtmlString("<a href = " + @Url.Action("Edit", new { Id = item.Id }) + " title = 'Detail'><i class='glyphicon glyphicon-search'></i><span class='sr-only'>Добавить</span></a>")
+)))

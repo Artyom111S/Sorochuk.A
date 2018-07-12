@@ -10,9 +10,9 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ASP.Net_WebAPI.Models;
 
-namespace ASP.Net_WebAPI.Controllers
+namespace ASP.Net_WebAPI.Controllers.Api
 {
-    public class BCController : ApiController
+    public class BlablaCarsController : ApiController
     {
         private Model1Container db = new Model1Container();
 
