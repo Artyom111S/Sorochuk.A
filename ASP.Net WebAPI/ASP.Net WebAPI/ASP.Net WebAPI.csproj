@@ -181,11 +181,11 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\BCController.cs" />
+    <Compile Include="Controllers\API\BuyingCarController.cs" />
     <Compile Include="Controllers\BuyingCarsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MVCController.cs" />
-    <Compile Include="Controllers\SellingAutoAPIController.cs" />
+    <Compile Include="Controllers\API\SellingAutoAPIController.cs" />
+    <Compile Include="Controllers\SellingAutoesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -227,11 +227,6 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\MVC\Create.cshtml" />
-    <Content Include="Views\MVC\Delete.cshtml" />
-    <Content Include="Views\MVC\Details.cshtml" />
-    <Content Include="Views\MVC\Edit.cshtml" />
-    <Content Include="Views\MVC\Index.cshtml" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\SellingAutoes\Create.cshtml" />
     <Content Include="Views\SellingAutoes\Delete.cshtml" />
@@ -240,6 +235,12 @@
     <Content Include="Views\SellingAutoes\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\WebGrid.cshtml" />
+    <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\BuyingCars\Create.cshtml" />
+    <Content Include="Views\BuyingCars\Delete.cshtml" />
+    <Content Include="Views\BuyingCars\Details.cshtml" />
+    <Content Include="Views\BuyingCars\Edit.cshtml" />
+    <Content Include="Views\BuyingCars\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -247,9 +248,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\BuyingCars\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

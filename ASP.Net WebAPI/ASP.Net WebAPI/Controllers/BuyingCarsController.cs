@@ -17,29 +17,29 @@ namespace ASP.Net_WebAPI.Controllers
         // GET: BuyingCars
         public ActionResult Index()
         {
-            //var buyingCarSet = db.BuyingCarSet.Include(b => b.SellingAuto);
-            return View(db.BuyingCarSet.ToList());
+            var buyingCarSet = db.BuyingCarSet.Include(b => b.SellingAuto);
+            return View(buyingCarSet.ToList());
         }
 
         // GET: BuyingCars/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    BuyingCar buyingCar = db.BuyingCarSet.Find(id);
-        //    if (buyingCar == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(buyingCar);
-        //}
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BuyingCar buyingCar = db.BuyingCarSet.Find(id);
+            if (buyingCar == null)
+            {
+                return HttpNotFound();
+            }
+            return View(buyingCar);
+        }
 
         // GET: BuyingCars/Create
         public ActionResult Create()
         {
-            //ViewBag.SellingAutoId = new SelectList(db.Selling_auto, "Id", "AutoDescription");
+            ViewBag.SellingAutoId = new SelectList(db.Selling_auto, "Id", "AutoDescription");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace ASP.Net_WebAPI.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BuyingCar buyingCar)
+        public ActionResult Create([Bind(Include = "Id,DataClient,Cost,DatePurchase,SellingAutoId")] BuyingCar buyingCar)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace ASP.Net_WebAPI.Controllers
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.SellingAutoId = new SelectList(db.Selling_auto, "Id", "AutoDescription", buyingCar.SellingAutoId);
+            ViewBag.SellingAutoId = new SelectList(db.Selling_auto, "Id", "AutoDescription", buyingCar.SellingAutoId);
             return View(buyingCar);
         }
 
@@ -73,7 +73,7 @@ namespace ASP.Net_WebAPI.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.SellingAutoId = new SelectList(db.Selling_auto, "Id", "AutoDescription", buyingCar.SellingAutoId);
+            ViewBag.SellingAutoId = new SelectList(db.Selling_auto, "Id", "AutoDescription", buyingCar.SellingAutoId);
             return View(buyingCar);
         }
 
@@ -82,7 +82,7 @@ namespace ASP.Net_WebAPI.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( BuyingCar buyingCar)
+        public ActionResult Edit([Bind(Include = "Id,DataClient,Cost,DatePurchase,SellingAutoId")] BuyingCar buyingCar)
         {
             if (ModelState.IsValid)
             {
@@ -90,35 +90,35 @@ namespace ASP.Net_WebAPI.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //ViewBag.SellingAutoId = new SelectList(db.Selling_auto, "Id", "AutoDescription", buyingCar.SellingAutoId);
+            ViewBag.SellingAutoId = new SelectList(db.Selling_auto, "Id", "AutoDescription", buyingCar.SellingAutoId);
             return View(buyingCar);
         }
 
         // GET: BuyingCars/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    BuyingCar buyingCar = db.BuyingCarSet.Find(id);
-        //    if (buyingCar == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(buyingCar);
-        //}
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BuyingCar buyingCar = db.BuyingCarSet.Find(id);
+            if (buyingCar == null)
+            {
+                return HttpNotFound();
+            }
+            return View(buyingCar);
+        }
 
         // POST: BuyingCars/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    BuyingCar buyingCar = db.BuyingCarSet.Find(id);
-        //    db.BuyingCarSet.Remove(buyingCar);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            BuyingCar buyingCar = db.BuyingCarSet.Find(id);
+            db.BuyingCarSet.Remove(buyingCar);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         protected override void Dispose(bool disposing)
         {
